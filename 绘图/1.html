@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>绘图</title>
+</head>
+<body>
+	<canvas id="statistics" width="750" height="500">
+		您的浏览器不支持CANVAS绘图
+	</canvas>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+	data=[
+		{'name':'1月','value':3500},
+		{'name':'2月','value':2450},
+		{'name':'3月','value':5635},
+		{'name':'4月','value':2780},
+		{'name':'5月','value':3550},
+		{'name':'6月','value':7845},
+		{'name':'7月','value':7645},
+		{'name':'8月','value':4590},
+		{'name':'9月','value':6545},
+		{'name':'10月','value':7650},
+		{'name':'11月','value':8550},
+		{'name':'12月','value':7890}
+	];
+		function drawStatistics( data ) {
+		var statCanvas = $('#statistics').get(0);
+		var w = statCanvas.width;    //canvas的宽
+		var h = statCanvas.height;   //canvas的高
+
+		var padding = 75;	//canvas中的图形距离边界的填充距离
+		var origin = {x: padding,  y: (h-padding)};  //坐标轴的原点
+		var leftTop = {x:  padding,  y:  padding }; //Y轴的顶点坐标
+		var rightBottom = {x: w-padding  , y: (h-padding) }; //X轴的最有端点坐标
+
+		var ctx = statCanvas.getContext('2d'); //获取2D绘图上下文对象
+
+		/*****绘制坐标轴-X******/
+		ctx.lineWidth = 2;   //路径线的宽度
+		ctx.strokeStyle = '#666'; //路径线的颜色
+		ctx.beginPath();
+		ctx.moveTo(origin.x,  origin.y);
+		ctx.lineTo(rightBottom.x,  rightBottom.y);
+		ctx.lineTo(rightBottom.x-10,  rightBottom.y-10);
+		ctx.moveTo(rightBottom.x,  rightBottom.y);
+		ctx.lineTo(rightBottom.x-10,  rightBottom.y+10);
+		var xGap =  (rightBottom.x-origin.x-30)/(data.length-1); //X轴上的坐标点的间距
+		ctx.font = '16px  SimHei';
+		for(var i=0; i<data.length;  i++){
+			if(i!=0){
+				ctx.moveTo(origin.x+ i*xGap,  origin.y);
+				ctx.lineTo(origin.x+i*xGap,  origin.y-10);
+			}
+			ctx.fillText( data[i].name,  origin.x+ i*xGap-ctx.measureText(data[i].name).width/2,  origin.y+18);
+		}
+
+		/*****绘制坐标轴-Y******/
+		ctx.moveTo(origin.x,  origin.y);
+		ctx.lineTo(leftTop.x,  leftTop.y);
+		ctx.lineTo(leftTop.x-10,  leftTop.y+10);
+		ctx.moveTo(leftTop.x,  leftTop.y);
+		ctx.lineTo(leftTop.x+10,  leftTop.y+10);
+		var yGap = (origin.y-leftTop.y-30)/6;  //Y轴上的单元格间距
+		var max = 0;
+		for(var i=0; i<data.length; i++){	//获取消费金额的最大值
+			if(data[i].value>max){
+				max = data[i].value;
+			}
+		}
+		for(var i=1;  i<7;  i++){
+			ctx.moveTo(origin.x,  origin.y- i*yGap );
+			ctx.lineTo(origin.x+10,  origin.y- i*yGap );
+			var txt = Math.round(max/6*i);
+			ctx.fillText(txt ,  origin.x-ctx.measureText(txt).width-2,  origin.y- i*yGap+6 );
+		}
+		
+		/*****绘制折线图*******/
+		for(var i=0; i<data.length;  i++){
+			var x = origin.x + i*xGap;
+			var y = origin.y - data[i].value*(origin.y-leftTop.y-30)/max;
+			var txt = data[i].value;
+			ctx.fillText(txt,  x-ctx.measureText(txt).width/2,  y-5);
+			if(i==0){
+				ctx.moveTo(x,  y);
+			}else{
+				ctx.lineTo(x,  y);
+			}
+		}
+		ctx.stroke();
+
+		/******绘制每个数值点处小圆圈******/
+		for(var i=0; i<data.length;  i++){
+			var x = origin.x + i*xGap;
+			var y = origin.y - data[i].value*(origin.y-leftTop.y-30)/max;
+			ctx.beginPath();
+			ctx.fillStyle = rc();  //'#f00';
+			ctx.arc(x,  y,  5,  0,  2*Math.PI);
+			ctx.fill( );	//填充一个实心圆
+		}
+	}
+	function rc(){
+		var rc='#';
+		for(var i=0;i<6;i++){
+			rc+=Math.floor(Math.random()*16).toString(16);
+		}
+		return rc;
+	}
+	drawStatistics( data );
+
+	
+// 	$(function(){
+// 	$.getJSON('data/buystatistics-fc.php', function(data){
+// 		//把服务器返回的数据显示在一个FC图中
+// 		var fc = new FusionCharts({
+// 			type: 'column2d',	//90+图之一  column2d  column3d  pie2d  pie3d  line  doughnut2d doughnut3d
+// 			renderAt:  'buy-statistics-fc',  
+// 			width: '750',
+// 			height: '500',
+// 			dataFormat: 'json',
+// 			dataSource: {
+// 				data: data
+// 			}
+// 		});
+// 		fc.render( ); //渲染出图形
+// 	});
+// });
+	</script>
+</body>
+</html>

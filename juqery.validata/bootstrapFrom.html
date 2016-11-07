@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bootstrapFrom</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<style type="text/css">
+		.modalInput {padding-left: 20px;margin-top: 20px;overflow: hidden;}
+		.modalInput > div {float: left;}
+		.modalInput label {width: 120px;text-align: right;height: 34px;line-height: 34px;}
+		.modal-dialog label > span {color: red;padding-right: 5px;}
+		.modalInput input, .modalInput textarea, .modalInput select {width: 420px;}
+		.form-control {display: inline-block;border-radius: 2px;}
+		.lastModalInput {padding-left: 20px;margin-top: 20px;	overflow: hidden;}
+		.lastModalInput > div {float: left;}
+		.onlyLabel label {width: 120px;	text-align: right;	height: 34px;	line-height: 34px;}
+		label {margin-bottom: 0;}
+		.checkboxInput {width: 420px;}
+		.modal-footer {text-align: center;	border: none;}
+		.modal-footer .btn {padding: 4px 21px;}
+	</style>
+</head>
+<body>
+  <div class="container-fluid">
+  	<div class="row">
+  		<div class="col-xs-12">
+  			<div class="btn btn-primary" data-toggle="modal" data-target="#userModal" >新增</div>
+  		</div>
+  	</div>
+  </div>
+  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 660px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="userModalLabel">添加用户</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form" id="user_form" action="/creditsupport/user/addUser" method="post">
+          <div class="modalInput">
+            <div>
+              <label for="realName"><span>*</span>姓名：</label>
+            </div>
+            <div>
+              <input type="text" class="form-control" id="addrealname" maxlength=20 name="realName" placeholder="请输入姓名">
+            </div>
+          </div>
+          <div class="modalInput">
+            <div>
+              <label for="userName"><span>*</span>用户名：</label>
+            </div>
+            <div>
+              <input type="text" class="form-control" id="addusername" maxlength=17 name="userName" placeholder="请输入用户名">
+            </div>
+          </div>
+          <div class="modalInput">
+            <div>
+              <label for="addpassword"><span>*</span>密码：</label>
+            </div>
+            <div>
+              <input type="password" class="form-control" id="addpassword" maxlength="16" name="password"
+                     placeholder="请输入密码" value="">
+            </div>
+          </div>
+          <div class="modalInput">
+            <div>
+              <label for="adddid"><span>*</span>部门：</label>
+            </div>
+            <div>
+               <select class="form-control" id="adddid" name="deptId">
+                 <option value="-1">请选择</option>
+                 <option value="1">前海云游</option>
+                 <option value="2">腾邦国际</option>
+                 <option value="27">hm测试部</option>
+                 <option value="28">测试实施</option>
+               </select>
+            </div>
+          </div>
+          <div class="lastModalInput">
+            <input type="hidden" id="adduserroleIds" name="roleIds" value=""/>
+            <div class="onlyLabel">
+              <label><span>*</span>角色</label>
+            </div>
+            <div class="checkboxInput" id="addrolecodition">
+            	<label class="checkbox-inline"><input type="checkbox" name="addroleId" value="1013">hm测试</label>
+            	<label class="checkbox-inline"><input type="checkbox" name="addroleId" value="1014">hm开发</label>
+            	<label class="checkbox-inline"><input type="checkbox" name="addroleId" value="1015">hm开发2</label> 
+            	<label class="checkbox-inline"><input type="checkbox" name="addroleId" value="1016">test123</label> 
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="save_user_btn" type="button" class="btn btn-primary">创建</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+			$.validator.setDefaults({
+			  submitHandler: function (form) {
+				  alert( "submitted!" );
+				  //form.submit();
+			  }
+		  });
+			$("#user_form").validate({
+				rules: {
+					realName: "required",
+					userName: "required",
+					password: {
+						required: true
+					},
+					deptId: {
+						required: true,
+					},
+					roleIds: "required"
+				},
+				messages: {
+					realName: "姓名不可为空！",
+					userName: "用户名不可为空！",
+					password: {
+						required: "密码不可为空！"
+					},
+					deptId: {
+						required: "部门不可为空！"
+					},
+					roleIds: "角色不可为空！"
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else {
+						error.insertAfter( element );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+				},
+				onsubmit: true,
+				onfocusout: function (element) {
+          $(element).valid();
+        }
+			});
+		})
+		
+    $(function () {  
+      $("#save_user_btn").on('click', function() {
+      	var b = $("#user_form").validate().form();
+      	if(b) {
+      		alert('成功！！')
+      	}
+      })
+    }) 
+	</script>
+</body>
+</html>

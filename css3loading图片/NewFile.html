@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/* ******************* 页面等待动画 ******************* */
+.loaded .loading-screen {opacity: 0;visibility: hidden;}
+@-webkit-keyframes loadcircle {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes loadcircle {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loadpulse {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.15);
+            transform: scale(0.15);
+  }
+}
+@keyframes loadpulse {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.15);
+            transform: scale(0.15);
+  }
+}
+.loading-sprite {
+  box-sizing: content-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 2px;
+  margin: -22px 0 0 -22px;
+  width: 44px;
+  height: 44px;
+  list-style: none;
+  overflow: hidden;
+  background: #fff;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.loading-screen {
+  background: #fff !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  opacity: 1;
+  visibility: visible;
+  transition: all .3s;
+  overflow: hidden;
+}
+.circle-loading {
+  position: relative;
+  top: 2px;
+  left: 2px;
+  width: 40px;
+  height: 40px;
+  z-index: 2;
+  opacity: 1;
+  border-radius: 100%;
+  background: #0088cb;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.pulse.b {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border-radius: 100%;
+  background: #fff;
+  z-index: 4;
+}
+.pulse.b:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 100%;
+  background: transparent;
+  z-index: 5;
+  box-shadow: 0 0 0 20px #fff;
+}
+.pulse.c {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  -webkit-animation: loadcircle 0.75s infinite linear;
+          animation: loadcircle 0.75s infinite linear;
+}
+.pulse.c:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin-top: -43.79562044px;
+  margin-left: -43.79562044px;
+  border-radius: 100%;
+  background: #f1f5f7;
+  z-index: 3;
+  -webkit-animation: loadpulse 2s infinite linear alternate;
+          animation: loadpulse 2s infinite linear alternate;
+}
+
+</style>
+</head>
+<body>
+	<div class="loading-screen">
+	  <ul class="loading-sprite">
+	    <li class="circle-loading"></li>
+	    <li class="pulse"></li>
+	    <li class="pulse b"></li>
+	    <li class="pulse c"></li>
+	  </ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+/*CSS Reset*/
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+body {
+	background: #fff;
+	font-size: 14px;
+	font-family: SimHei;
+	color: #333;
+}
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+/*header*/
+.header {
+	background: #e45151;
+	height: 70px;
+}
+.logobar {
+	width: 980px;
+	margin: 0 auto;
+}
+
+/*main*/
+.main {
+	background: #f5f5f5;
+	min-height: 500px;
+}
+.content {
+	width: 980px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.left {
+	width: 200px;
+	float: left;
+	padding: 10px;
+}
+.menu  li {
+	padding: 8px 0 0 20px;
+}
+.menu li  a {
+	color: #333;
+	text-decoration: none;
+}
+.menu li a.active {
+	color: #e45151;
+	font-weight: bold;
+}
+.center {
+	width: 780px;
+	background: #fff;
+	min-height: 500px;
+	float: left;
+}
+#my-order,
+#buy-statistics, 
+#luck-lottery {
+	padding: 15px;
+}
+#my-order  table {
+	border-collapse: collapse;
+	width: 100%;
+}
+#my-order table  td,
+#my-order table  th {
+	border: 1px solid #eee;
+	padding: 10px; 
+	text-align: center;
+}
+#my-order table  th {
+	background: #e8e8e8;
+}
+.pager {
+	padding: 20px;
+}
+.pager ul {
+	list-style: none;
+}
+.pager ul li{
+	float: left;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #eee;
+	text-align: center;
+	line-height: 32px;
+	margin: 0 10px 0 0;
+}
+.pager ul li:hover {
+	background: #f0f0f0;
+}
+.pager ul li.active{
+	background: #e8e8e8;
+}
+
+#luck-lottery  button {
+	display: none;
+	margin: 10px  auto;
+	padding: 8px  30px;
+}
+
+
+
+
+/*footer*/
+.footer {
+	
+}
+.footer  .content{
+	text-align: center;
+	padding: 10px 0 30px 0;
+}

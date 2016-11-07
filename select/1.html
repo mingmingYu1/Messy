@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>select多选处理</title>
+	<script src="jquery.js"></script>
+</head>
+<style>
+  *{
+  	margin: 0;
+  	padding: 0;
+  }
+  body{
+  	color: #666;
+  	font-family: "微软雅黑",Arial;
+  	font-size: 14px;
+  }
+	#d1 {
+		margin: 30px auto;
+	}
+	ul {
+		list-style: none;
+	}
+  .select { width: 77px;min-width: 77px; line-height: 30px; border:1px solid #ccc; border-radius: 2px; cursor: pointer; font-size: 14px; color: #666;}
+  .select > li { height: 30px; position: relative;}
+  .select > li p { height: 30px; line-height: 30px; text-align: center;}
+  .select > li p em { float: left; min-width: 54px;}
+  .select > li p span { float: left; width: 21px; height: 30px; background: url(images/select2.jpg) no-repeat 0 center;}
+  .select > li input { display: none;}
+  .select > li ul { display: none; width: 77px; border:1px solid #ccc; border-top: none; border-radius: 0 0 2px 2px; background: #fff; position: absolute; left: -1px; top:30px; z-index: 5;}
+  .select > li ul li { text-indent: 20px; font-size: 14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .select > li ul li:hover { background: #ccc;}
+  .select > li ul li.active { background: #ccc;}
+</style>
+<body>
+	<select name="select" id="select">
+		<option>--工作地区--</option>
+		<option value="bj"> 北京</option>
+		<option value="sz">深圳</option>
+		<option value="nj">南京</option>
+		<option value="sh">上海</option>
+		<option value="gz">广州</option>
+	</select>
+	<div id="d1" class="pagesBox">
+		<ul class="select">
+			<li>	
+				<p>
+					<em>20</em>
+					<span></span>
+				</p>
+				<input id="pageSizeSelect" type="text" value="20">
+				<ul style="display:none;">
+					<li style="display:none;">20</li>
+					<li style="display:black;">10</li>
+					<li style="display:black;">50</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<script>
+/*	var select=document.getElementById('select');
+	var option=document.getElementsByTagName('option')
+	console.log(select.options.length) 
+	select.onchange=function(){
+		var all="";
+		for(var i=0;i<select.options.length;i++){
+		if(select.options[i].selected){
+			all+=select.options[i].value;
+			}
+		}
+		console.log(all);
+	}
+     */
+ $("#select").on("click","option", function () {
+ 	  debugger;
+ 	  alert(this);
+ })
+
+
+	//   控制select事件
+
+	var selectTool = {
+	  init: function(){
+	  	debugger;
+		  var oPag = $('.pagesBox');
+		  this.select(oPag);
+		  this.select($('.indicator'));
+	  },
+	  select: function(obj){
+		  var oSelect = obj.find('.select');
+		  var oEm = oSelect.find('em');
+		  var oInp = oSelect.find('input');
+		  var oList = oSelect.find('ul');
+		  var aLi = oList.find('li');
+		  var bOff = true;
+		  oSelect.click(function(){
+		  	debugger;
+			  var str = oInp.val();
+			  if( bOff ){
+				  for( var i=0; i<aLi.length; i++ ){
+					  if(str == aLi.eq(i).html()){
+						  aLi.eq(i).css('display','none');
+					  }else{
+						  aLi.eq(i).css('display','block');
+					  }
+				  }
+				  oList.show();
+			  }else{
+				  oList.hide();
+			  }
+			  bOff = !bOff;
+			  return false;
+		  });
+		  aLi.click(function(){
+		  	debugger;
+			  var iNow = $(this).html();
+			  if($(this).attr("value") && $(this).attr("value") !== "") {
+				  var iValue= $(this).attr("value");
+			  }
+			  else {
+				  var iValue= iNow;
+			  }
+			  //aLi.attr('class','');
+			  //$(this).attr('class','active');
+			  oEm.html(iNow);
+			  oInp.val(iValue);
+			  oInp.trigger('change');
+			  oList.hide();
+			  bOff = true;
+			  return false;
+		  });
+		$(document).click(function(){
+			oList.hide();
+			bOff = true;
+		});
+	}
+};
+selectTool.init();
+	</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <title>用户中心 — 京东商城</title>
+   <meta charset="utf-8"/>
+   <link rel="stylesheet" href="css/basic.css">
+   <script src="js/fusioncharts.js"></script>
+ </head>
+ <body>
+	<!--start header-->
+	<div class="header">
+		<div class="logobar">
+		</div>
+	</div>
+	<!--end header-->
+
+	<!--start main-->
+	<div class="main">
+		<div class="content">
+			<div class="left">
+				<h2>我的京东</h2>
+				<ul class="menu">
+					<li><a href="#my-order">我的订单</a></li>
+					<li><a href="#buy-statistics">消费记录(原生版)</a></li>
+					<li><a href="#buy-statistics-fc">消费记录(FC版)</a></li>
+					<li><a  class="active" href="#luck-lottery">幸运抽奖</a></li>
+				</ul>
+			</div>
+			<div class="center">
+				<div id="my-order" style="display:none">
+					<table >
+						<thead>
+							<tr>
+								<th>订单信息</th>
+								<th>收货人</th>
+								<th>订单金额</th>
+								<th>最近三个月</th>
+								<th>全部状态</th>	
+								<th>操作</th>	
+							</tr>
+						</thead>
+						<tbody>
+							<!--
+							<tr>
+								<td colspan="6">
+									订单编号：234213413
+									<a href="#">京东自营</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#"><img src="img/prod1.jpg"></a>
+									<a href="#"><img src="img/prod2.jpg"></a>
+								</td>
+								<td>强东</td>
+								<td>￥212.50<br>在线支付</td>
+								<td>2010-10-15<br>10:22:35</td>
+								<td>等待收货</td>
+								<td>
+									<a href="#">查看</a><br>
+									<a href="#">确认收货</a><br>
+									<a href="#">取消订单</a>
+								</td>
+							</tr>-->
+						</tbody>
+					</table>
+					<div class="pager">
+						<ul>
+							<!--<li><a href="#">&laquo;</a></li>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&raquo;</a></li>-->
+						</ul>
+					</div>
+				</div>
+				<div id="buy-statistics" style="display:none">
+					<canvas id="statistics" width="750" height="500">
+						您的浏览器不支持CANVAS绘图技术！
+					</canvas>
+				</div>
+				<div id="buy-statistics-fc" style="display:none">
+				</div>
+				<div id="luck-lottery">
+					<canvas id="lottery" width="750" height="500">
+						您的浏览器不支持Canvas绘图！
+					</canvas>
+					<button>开始抽奖</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end main-->
+	
+	<!--start footer-->
+	<div class="footer">
+		<div class="content">
+			版权所有©京东商城
+		</div>
+	</div>
+	<!--end footer-->
+ <script src="js/jquery-1.11.1.js"></script>
+ <script src="js/usercenter.js"></script>
+ </body>
+</html>

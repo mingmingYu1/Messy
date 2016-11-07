@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{box-sizing:border-box;}
+		ul{list-style: none;}
+		li{float: left;width: 20px;border:1px solid red;height: 20px;border-radius: 20px;margin-left: 8px;text-align: center;line-height: 18px;cursor: pointer;}
+		.only{background-color: red;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li class="only">1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+	<script>
+		var lis=document.getElementsByTagName('li');
+				for (var i = 0; i <lis.length; i++) {
+					// lis[i].onclick=(function(i){
+					// 	return function(){
+					// 		document.getElementsByClassName("only")[0].className="";
+					// 		lis[i].className="only";
+					// 	}
+					// })(i)
+					lis[i].index=i;
+					lis[i].onclick=function(){
+							document.getElementsByClassName("only")[0].className="";
+							lis[this.index].className="only"
+					}
+				};
+	</script>
+</body>
+</html>

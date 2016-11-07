@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>checkbox全选</title>
+	<style type="text/css">
+	  #detilTitle {
+	  	padding-left: 80px;
+	  }
+		#detilTitle span {
+      padding-right: 40px;
+      margin-top: 20px;
+      display: inline-block;
+      color: #41c5da;
+		}
+		#detilTitle > div > div:last-child {
+			margin-left: 20px;
+		}
+		#detilTitle > div > div > div > div:last-child {
+	    margin-left: 20px;
+    }
+	</style>
+</head>
+<body>
+	<div>
+	  <div id="detilTitle">
+	  	
+	  </div>
+	  <br><br><br><br><br>
+		<div><input id="checked1" type="checkbox" name="1"  value="1">1</div>
+		<div>
+		  &nbsp;&nbsp;
+			<input class="check1Child" type="checkbox" name="11" value="11">11
+			<input class="check1Child" type="checkbox" name="12" value="12">12
+			<input class="check1Child" type="checkbox" name="13" value="13">13
+			<input class="check1Child" type="checkbox" name="14" value="14">14
+			<input class="check1Child" type="checkbox" name="15" value="15">15
+		</div>
+		</div>
+		<div><div><input id="checked2" type="checkbox" name="2">特殊事项</div><div>
+		<div><input id="checked1" type="checkbox" name="2" value="2">违法违规</div><div>
+		<input type="checkbox" name="2" value="2">裁判文书</div></div>
+		<div><div><input id="checked22" type="checkbox" name="2" value="2">法定代表人失信</div><div>
+		<input type="checkbox" name="2" value="2">裁判文书<input type="checkbox" name="2" value="2">执行公告</div></div></div>
+	</div>
+	<br/><br/><br/>
+	<button id="add">新增</button>
+	<button id="edit">编辑</button>
+	<div id='containerCheckbox'>
+		
+	</div>
+	<div id='jbxx' class='isShow'>
+		<span></span>
+		<div>
+			<span></span>
+		</div>
+	</div>
+	<div id='gszcxx' class='isShow'>
+		<span></span>
+	</div>
+	<div id='lxdz' class='isShow'>
+		<span></span>
+	</div>
+	<div id='tssxxx' class='isShow'>
+		<span></span>
+	</div>
+	<div id='wfwg' class='isShow'>
+		<span></span>
+	</div>
+	<div id='cpws' class='isShow'>
+		<span></span>
+	</div>
+	<div id='fddbrsx' class='isShow'>
+		<span></span>
+	</div>
+	<div id='frcpws' class='isShow'>
+		<span></span>
+	</div>
+	<div id='frzxgg' class='isShow'>
+		<span></span>
+	</div>
+  
+	<div><div><input type="checkbox" name="">5高管商旅信息</div><div>
+	<div><div><input type="checkbox" name="">5.1法人代表</div><div>
+	<input type="checkbox" name="">5.1.1、法人代表总体出行
+	<input type="checkbox" name="">5.1.2、法人代表商务出行</div></div>
+	<div><div><input type="checkbox" name="">5.2、控股股东乘机</div><div>
+	<input type="checkbox" name="">5.2.1、股东总体出行
+	<input type="checkbox" name="">5.2.2、股东商务出行</div></div>
+	</div>
+	</div>
+  
+	<div><div><input id="check5" class="check" type="checkbox" name="executivesBusinessInfo">五、高管商旅信息</div><div>
+  <div><div><input id="check51" type="checkbox" name="legalFly">5.1、法人代表乘机</div><div>
+
+  <input class="checkChild" type="checkbox" name="frdbcjztcx">5.1.1、法人代表总体出行</div></div>
+  <input class="checkChild" type="checkbox" name="frdbcjswcx">5.1.2、法人代表商务出行</div></div>
+
+  <div><div><input id="check52" type="checkbox" name="shareholderFly">5.2、控股股东乘机</div><div>
+
+  <input class="checkChild" type="checkbox" name="kggdztcxfx">5.2.1、股东总体出行
+  <input class="checkChild" type="checkbox" name="kggdswcx">5.2.2、股东商务出行</div></div>
+
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+	  var data = [
+		    {
+		    	key:'jbxx', 
+		    	name:'基本信息', 
+		    	children:[
+		    	  {
+		    	  	key: 'gszcxx', 
+		    	    name:'工商注册信息'
+		    	  },
+		    	  {
+		    	  	key: 'lxdz', 
+		    	  	name:'联系地址和电话信息'
+		    	  }
+		    	]
+		    },
+		    {
+		    	key:'tssxxx', 
+		    	name:'特殊事项信息', 
+		    	children:[
+		    	  {
+		    	  	key: 'wfwg', 
+		    	  	name:'违法违规', 
+		    	  	children:[
+		    	  	  {
+		    	  	  	key:'cpws', 
+		    	  	  	name:'裁判文书'
+		    	  	  }
+		    	  	]
+		    	  },
+		    	  {
+		    	  	key: 'fddbrsx', 
+		    	  	name:'法定代表人失信', 
+		    	  	children:[
+		    	  	  {
+		    	  	  	key:'frcpws', 
+		    	  	  	name:'裁判文书'
+		    	  	  },
+		    	  	  {
+		    	  	  	key:'frzxgg', 
+		    	  	  	name:'执行公告'
+		    	  	  }
+		    	  	]
+		    	  }
+		    	]
+		    }
+	  ]
+	  var titleData = [
+    {
+      "key": "basicInfo",
+      "name": "一、基本信息",
+      "children": [
+        {
+          "key": "basic",
+          "name": "1.1、工商注册信息",
+          "children": null
+        },
+        {
+          "key": "addr",
+          "name": "1.2、联系地址和电话信息",
+          "children": null
+        },
+        {
+          "key": "stockH",
+          "name": "1.3、股东信息",
+          "children": null
+        },
+        {
+          "key": "topM",
+          "name": "1.4、高管信息",
+          "children": null
+        },
+        {
+          "key": "othEnt",
+          "name": "1.5、对外股权投资信息",
+          "children": null
+        },
+        {
+          "key": "legPerPo",
+          "name": "1.6、法定代表人在其他机构任职信息",
+          "children": null
+        },
+        {
+          "key": "legPerSt",
+          "name": "1.7、法定代表人股权投资信息",
+          "children": null
+        },
+        {
+          "key": "score",
+          "name": "1.8、企业变更信息",
+          "children": null
+        },
+        {
+          "key": "fzjg",
+          "name": "1.9、分支机构信息",
+          "children": null
+        },
+        {
+          "key": "qingsuan",
+          "name": "1.10、清算信息",
+          "children": null
+        },
+        {
+          "key": "dcdy",
+          "name": "1.11、动产抵押信息",
+          "children": null
+        },
+        {
+          "key": "dcdyw",
+          "name": "1.12、动产抵押物信息",
+          "children": null
+        },
+        {
+          "key": "gqdjls",
+          "name": "1.13、股权冻结历史信息",
+          "children": null
+        },
+        {
+          "key": "gqczls",
+          "name": "1.14、股权出质历史信息",
+          "children": null
+        }
+      ]
+    },
+    {
+      "key": "financialInfo",
+      "name": "二、财务信息",
+      "children": [
+        {
+          "key": "balanceSheet",
+          "name": "2.1、资产负债表",
+          "children": null
+        },
+        {
+          "key": "profitStatemen",
+          "name": "2.2、利润表",
+          "children": null
+        }
+      ]
+    },
+    {
+      "key": "taxInfo",
+      "name": "三、税务信息",
+      "children": [
+        {
+          "key": "sysl",
+          "name": "3.1、适用税率",
+          "children": null
+        },
+        {
+          "key": "fsl",
+          "name": "3.2、负税率",
+          "children": null
+        },
+        {
+          "key": "zzsybnarsb",
+          "name": "3.3、增值税一般纳税人申报",
+          "children": null
+        },
+        {
+          "key": "yxse",
+          "name": "3.4、应销售额",
+          "children": null
+        },
+        {
+          "key": "zrse",
+          "name": "3.5、总纳税额",
+          "children": null
+        }
+      ]
+    },
+    {
+      "key": "transactionInfo",
+      "name": "四、交易信息",
+      "children": [
+        {
+          "key": "hxjy",
+          "name": "4.1、核心经营信息",
+          "children": null
+        },
+        {
+          "key": "yycjy",
+          "name": "4.2、月异常交易信息",
+          "children": null
+        },
+        {
+          "key": "jywdxzb",
+          "name": "4.3、经营稳定性指标信息",
+          "children": null
+        },
+        {
+          "key": "jybhqs",
+          "name": "4.4、经营变化趋势信息",
+          "children": null
+        },
+        {
+          "key": "bsthxxdb",
+          "name": "4.5、本市同行信息对比信息（月）",
+          "children": null
+        },
+        {
+          "key": "khdyfb",
+          "name": "4.6、客户地域分布",
+          "children": null
+        },
+        {
+          "key": "khzcd",
+          "name": "4.7、客户忠诚度",
+          "children": null
+        },
+        {
+          "key": "gys",
+          "name": "4.8、供应商信息",
+          "children": null
+        },
+        {
+          "key": "kh",
+          "name": "4.9、客户信息",
+          "children": null
+        }
+      ]
+    },
+    {
+      "key": "executivesBusinessInfo",
+      "name": "五、高管商旅信息",
+      "children": [
+        {
+          "key": "legalFly",
+          "name": "5.1、法人代表乘机",
+          "children": [
+            {
+              "key": "frdbcjztcx",
+              "name": "5.1.1、法人代表总体出行",
+              "children": null
+            },
+            {
+              "key": "frdbcjswcx",
+              "name": "5.1.2、法人代表商务出行",
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "shareholderFly",
+          "name": "5.2、控股股东乘机",
+          "children": [
+            {
+              "key": "kggdztcxfx",
+              "name": "5.2.1、股东总体出行",
+              "children": null
+            },
+            {
+              "key": "kggdswcx",
+              "name": "5.2.2、股东商务出行",
+              "children": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "specialEventInfo",
+      "name": "六、特殊事项信息",
+      "children": [
+        {
+          "key": "wfwg",
+          "name": "6.1、违法违规",
+          "children": [
+            {
+              "key": "wfwgcpws",
+              "name": "6.1.1、违法违规裁判文书",
+              "children": null
+            },
+            {
+              "key": "wfwgzxgg",
+              "name": "6.1.2、违法违规执行公告",
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "fddbrsx",
+          "name": "6.2、法定代表人失信",
+          "children": [
+            {
+              "key": "fdrsxcpws",
+              "name": "6.2.1、法人代表裁判文书",
+              "children": null
+            },
+            {
+              "key": "fdrsxzxgg",
+              "name": "6.2.2、法人代表执行公告",
+              "children": null
+            },
+            {
+              "key": "fdrsxsxgg",
+              "name": "6.2.3、法人代表失信公告",
+              "children": null
+            },
+            {
+              "key": "fdrsxwdhmd",
+              "name": "6.2.4、法人代表网贷黑名单",
+              "children": null
+            },
+            {
+              "key": "fdrsxbgt",
+              "name": "6.2.5、法人代表曝光台",
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "kggdsx",
+          "name": "6.3、控股股东失信",
+          "children": [
+            {
+              "key": "kggdsxcpws",
+              "name": "6.3.1、控股股东裁判文书",
+              "children": null
+            },
+            {
+              "key": "kggdsxzxgg",
+              "name": "6.3.2、控股股东执行公告",
+              "children": null
+            },
+            {
+              "key": "kggdsxsxgg",
+              "name": "6.3.3、控股股东失信公告",
+              "children": null
+            },
+            {
+              "key": "kggdsxwdhmd",
+              "name": "6.3.4、控股股东网贷黑名单",
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "qtbl",
+          "name": "6.4、其他不良",
+          "children": [
+            {
+              "key": "qtblalqd",
+              "name": "6.4.1、其他不良阿里欠贷",
+              "children": null
+            },
+            {
+              "key": "qtblwdhmd",
+              "name": "6.4.2、其他不良网贷黑名单",
+              "children": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "courtInfo",
+      "name": "七、法院信息",
+      "children": [
+        {
+          "key": "special",
+          "name": "7.1、法院被执行信息",
+          "children": null
+        }
+      ]
+    },
+    {
+      "key": "scoreInfo",
+      "name": "八、评分信息",
+      "children": [
+        {
+          "key": "pfzb",
+          "name": "8.1、评分指标信息",
+          "children": null
+        }
+      ]
+    }
+  ]
+	  // $.ajax({ 
+			// 	url: "1.json",
+			// 	dataType:"json",
+			// 	cache:"false",
+			// 	success: function(res){
+			// 		if(res.code == 0) {
+		 //        checkAll(res.data)
+		 //      } else {
+		 //        window.wxc.xcConfirm(responseText.message, window.wxc.xcConfirm.typeEnum.info);
+		 //      }
+   //      }
+   //   });
+	  var arrId = '{"jbxx": "1", "gszcxx":"1"}'
+		var checked = {
+			isShowTitle: function () {
+			  var checkboxs = $("#containerCheckbox input[type=checkbox]")
+        var checkedArr = []
+        $('.isShow').hide();
+        checkboxs.each(function() {
+      	  if(this.checked === true) {
+      		  checkedArr.push(this.name)
+      	  }
+        })
+        $(checkedArr).each(function () {
+      	  $('#'+this).show()
+        })
+		  },
+			oneChildren: function (id, clas) {
+				var _self = this
+				$(id).on('change', function() {
+          if($(this).prop('checked')) {
+        	  $(clas).prop('checked', true)
+          } else {
+        	  $(clas).prop('checked', false)
+          }
+          _self.isShowTitle()
+			  })
+			  $(clas).on('change', function () {
+          var score = 0
+				  $(clas).each(function (i) {
+            if($(this).prop('checked')) {
+           	  score++
+            }
+				  })
+				  if(score > 0) {
+					  $(id).prop('checked', true)
+				  } else {
+					  $(id).prop('checked', false)
+				  }
+				  _self.isShowTitle()
+			  })
+			},
+			twoChildren: function (id1, id2, id3) {
+				var _self = this
+				//  第一个参数为三层中一级的标题id， 后面的参数为所有二级标题的id
+        var firstArguments = arguments[0]
+				var arrArg = [];
+				for(var i =0; i < arguments.length; i++) {
+					if(i !== 0) { arrArg.push(arguments[i]) }
+				}
+			  //   给第一层绑定事件处理逻辑
+				$(id1).on('change', function() {
+					if($(this).prop('checked')) {
+					  for(var i=0; i<arrArg.length; i++) {
+					  	$(arrArg[i]).prop('checked', true)
+              $(arrArg[i]).parent().siblings().children().prop('checked', true)
+					  }
+					} else {
+						for(var i=0; i<arrArg.length; i++) {
+					  	$(arrArg[i]).prop('checked', false)
+              $(arrArg[i]).parent().siblings().children().prop('checked', false)
+					  }
+					}
+					_self.isShowTitle()
+				})
+				//  给第二层绑定事件处理逻辑
+        for(var i=0; i<arrArg.length; i++) {
+					$(arrArg[i]).on('change', function(j) {
+					 	if($(this).prop('checked')) {
+					 	  $(firstArguments).prop('checked', true)
+					 	  $(this).parent().siblings().children().prop('checked', true)
+					 	} else {
+					 		var score = 0;
+					 	  $(this).parent().siblings().children().prop('checked', false)
+					 	  for(var i =0; i < arrArg.length; i++) {
+					 	  	//  判断所以二级标题是否选中即可确定当前是否有选中，来控制一级标题是否不选中
+					 	  	if($(arrArg[i]).prop('checked')) {
+					 	  		score++
+					 	  	}
+					 	  }
+              if(score <= 0) {
+					 	    $(firstArguments).prop('checked', false)
+              }
+					 	}
+					 	_self.isShowTitle()
+					})
+				}
+				//   给第三层绑定事件处理逻辑
+        for(var i=0; i<arrArg.length; i++) {
+        	var $children = $(arrArg[i]).parent().siblings().children()
+
+					$children.on('change', function() {
+					 	if($(this).prop('checked')) {
+					 		$(this).parent().parent().find('div').eq(0).children().prop('checked', true)
+					 		$(firstArguments).prop('checked', true)
+					 	} else {
+              // 判断当前二级标题下是否还有选中的input
+              var score = 0
+              //   得到当前所以的同辈input的集合
+              var $levenTwo = $(this).parent().parent().find('div').eq(0).siblings().children()
+              //   判断当前一级下面的二级标题是否有选中
+              var oneScore = 0
+              $levenTwo.each(function (i) {
+                if($(this).prop('checked')) {
+                	score++
+                }
+              })
+              if(score <= 0) {
+              	$(this).parent().parent().find('div').eq(0).children().prop('checked', false)
+              }
+              //     判断当前一级下面的二级标题是否有选中
+              for(var i =0; i < arrArg.length; i++) {
+					 	  	//  判断所以二级标题是否选中即可确定当前是否有选中，来控制一级标题是否不选中
+					 	  	if($(arrArg[i]).prop('checked')) {
+					 	  		score++
+					 	  	}
+					 	  }
+              if(score <= 0) {
+					 	    $(firstArguments).prop('checked', false)
+              }
+					 	}
+					 	_self.isShowTitle()
+					})
+				}
+			},
+		}
+		//checked.twoChildren('#checked2', '#checked21', '#checked22')
+		//checked.oneChildren('#checked1', '.check1Child')
+    function checkAll(titleData) {
+    	var strContainer = ''
+    	$(titleData).each(function(i, dom) {
+			  var str = ''
+        str += '<div><div><input id="check'+String(i+1)+'" class="check" type="checkbox" name='+this.key+'>'+this.name+'</div><div>'
+        $('#'+this.key).children().eq(0).html(this.name)
+        if(dom.children) {
+      	  $(dom.children).each(function(j, childDom) {
+            if(childDom.children) {
+          	  //  此为三级
+          	  str += '<div><div><input id="check'+String(i+1)+String(j+1)+'" type="checkbox" name='+this.key+'>'+this.name+'</div><div>'
+          	  $('#'+this.key).children().eq(0).html(this.name)
+      		    $(childDom.children).each(function(n, childChildDom) {
+      		  	  if(dom.children.length === j+1) {
+                  if(childDom.children.length === n+1) {
+      		  		    str += '<input class="checkChild" type="checkbox" name='+this.key+'>'+this.name+'</div></div></div></div>'
+      		  	      $('#'+this.key).children().eq(0).html(this.name)
+      		  	    } else {
+      		  		    str += '<input class="checkChild" type="checkbox" name='+this.key+'>'+this.name+''
+      		  	      $('#'+this.key).children().eq(0).html(this.name)
+      		  	    }
+          	    } else {
+          	    	if(childDom.children.length === n+1) {
+      		  	      str += '<input class="checkChild" type="checkbox" name='+this.key+'>'+this.name+'</div></div>'
+          	        $('#'+this.key).children().eq(0).html(this.name)
+      		  	    } else {
+      		  		    str += '<input class="checkChild" type="checkbox" name='+this.key+'>'+this.name+''
+      		  	      $('#'+this.key).children().eq(0).html(this.name)
+      		  	    }
+          	    }
+      		    })
+      	    } else {
+      	  	  //    此为只有二级
+      	  	  if(dom.children.length === j+1) {
+      	  		  $('#'+this.key).children().eq(0).html(this.name)
+      	  		  str += '<input class="checkChild'+String(i+1)+'" type="checkbox" name='+this.key+'>'+this.name+'</div></div>'
+      	  	  } else {
+      	  		  $('#'+this.key).children().eq(0).html(this.name)
+      	  		  str += '<input class="checkChild'+String(i+1)+'" type="checkbox" name='+this.key+'>'+this.name+''
+      	  	  }
+      	    }
+      	  })
+        }
+        strContainer += str
+		  })
+    	$('#containerCheckbox').append(strContainer)
+    }
+    
+    function creactTitle(titleData) {
+      var strContainer = ''
+    	$(titleData).each(function(i, dom) {
+			  var str = ''
+        str += '<div><div><span>'+this.name+'</span></div><div>'
+        if(dom.children) {
+      	  $(dom.children).each(function(j, childDom) {
+            if(childDom.children) {
+          	  //  此为三级
+          	  str += '<div><div><span>'+this.name+'</span></div><div>'
+          	  $('#'+this.key).children().eq(0).html(this.name)
+      		    $(childDom.children).each(function(n, childChildDom) {
+      		  	  if(dom.children.length === j+1) {
+                  if(childDom.children.length === n+1) {
+      		  		    str += '<span>'+this.name+'</span></div></div></div></div>'
+      		  	      $('#'+this.key).children().eq(0).html(this.name)
+      		  	    } else {
+      		  		    str += '<span>'+this.name+'</span>'
+      		  	    }
+          	    } else {
+          	    	if(childDom.children.length === n+1) {
+      		  	      str += '<span>'+this.name+'</span></div></div>'
+      		  	    } else {
+      		  		    str += '<span>'+this.name+'</span>'
+      		  	    }
+          	    }
+      		    })
+      	    } else {
+      	  	  //    此为只有二级
+      	  	  if(dom.children.length === j+1) {
+      	  		  str += '<span>'+this.name+'</span></div></div>'
+      	  	  } else {
+      	  		  str += '<span>'+this.name+'</span>'
+      	  	  }
+      	    }
+      	  })
+        }
+        strContainer += str
+		  })
+    	$('#detilTitle').append(strContainer)
+    }
+    
+    creactTitle(titleData)
+		checkAll(titleData)
+		checkAll(data)
+		//  新增
+		$('#add').on('click', function() {
+			$('.isShow').show()
+			$('#containerCheckbox input[type=checkbox]').prop('checked',true)
+		})
+		//   编辑
+		$('#edit').on('click', function() {
+			$('#containerCheckbox input[type=checkbox]').prop('checked',false)
+			$('.isShow').hide();
+			var obj = JSON.parse(arrId)
+			for(key in obj) {
+			  $('#containerCheckbox input[name='+key+']').prop('checked',true)
+      	$('#'+key).show()
+		  }
+		})
+		//  与下面的div关联
+		
+		checked.oneChildren('#check1', '.checkChild1')
+		checked.twoChildren('#check2', '#check21', '#check22')
+	</script>
+</body>
+</html>
