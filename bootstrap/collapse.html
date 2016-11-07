@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>collapse</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.row{
+			margin-top: 20px;
+		}
+		.btns .btna {
+			margin-left: -15px;
+		}
+		.none {
+			display: none;
+		}
+		.open {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 btns">
+				<a class="btn btn-default btna" href="#collapseOne" type="button">One</a>
+				<a class="btn btn-default" href="#collapseTwo" type="button">Two</a>
+				<a class="btn btn-default" href="#collapseThree" type="button">Three</a>
+				
+			</div>
+			<div class="col-xs-12" id="btna">
+				<a class="btn btn-default" href="#collapse1" type="button">1</a>
+				<a class="btn btn-default" href="#collapse2" type="button">2</a>
+				<a class="btn btn-default" href="#collapse3" type="button">3</a>
+			</div>
+			<div class="col-xs-12">
+				<button id="allHide" class="btn btn-lg btn-info" >全部收起</button>
+				<button id="allShow" class="btn btn-lg btn-info" >全部打开</button>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="panel-group" id="accordion" role="tablist">
+  			<div class="panel panel-default">
+    			<div class="panel-heading" role="tab" id="headingOne">
+      			<div class="row">
+      				<div class="col-xs-12">
+      					<div class="pull-right" style="padding-right:15px;"> 
+      					<h4 class="panel-title">
+		        			<a data-toggle="collapse" data-parent="#accordion" 
+		        				href="#collapseOne">
+		          			Collapsible Group Item #1
+		        			</a>
+      					</h4>
+      				</div>
+      				</div>
+      			</div>
+    			</div>
+	    		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
+	      		<div class="panel-body">
+			        One
+			      </div>
+	    		</div>
+  			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading" role="tab" id="headingTwo">
+			    <h4 class="panel-title">
+			      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+			          Collapsible Group Item #2
+			      </a>
+			    </h4>
+			  </div>
+			  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel">
+			    <div class="panel-body">
+			      Two
+			    </div>
+			  </div>
+			</div>
+			  <div class="panel panel-default">
+			    <div class="panel-heading" role="tab" id="headingThree">
+			      <h4 class="panel-title">
+			        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+			          Collapsible Group Item #3
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel">
+			      <div class="panel-body">
+			        three
+			      </div>
+			    </div>
+	  		</div>
+			</div>
+		</div>
+		
+		<div class="panel" id="collapse1">
+			<div style="overflow:hidden">
+				<div class="pull-left">
+					基本信息
+				</div>
+				<div class="pull-right">
+					<button class="btn tbn-default">收起</button>
+				</div>
+			</div>
+			<div class="panel1" id="panelOne" style="border: 1px solid #ccc;">
+				<h1>开始看积分卡士大夫</h1>
+			</div>
+		</div>
+		<div class="panel " id="collapse2">
+			<div style="overflow:hidden">
+				<div class="pull-left">
+					基本信息
+				</div>
+				<div class="pull-right">
+					<button class="btn tbn-default">收起</button>
+				</div>	
+			</div>
+			<div class="panel1" id="panelTwo" style="border: 1px solid #ccc;display:none;">
+				<h1>开始看积分卡士大夫</h1>
+			</div>
+		</div>
+		<div class="panel" id="collapse3">
+			<div style="overflow:hidden">
+				<div class="pull-left">
+					基本信息
+				</div>
+				<div class="pull-right">
+					<button class="btn tbn-default">收起</button>
+				</div>
+			</div>
+			<div class="panel1" id="panelThree" style="border: 1px solid #ccc;display:none;">
+				<h1>开始看积分卡士大夫</h1>
+				<h1>开始看积分卡士大夫</h1>
+				<h1>开始看积分卡士大夫</h1>
+				<h1>开始看积分卡士大夫</h1>
+				<h1>开始看积分卡士大夫</h1>
+				<h1>开始看积分卡士大夫</h1>
+			</div>
+		</div>
+		<div>
+			
+		</div>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	</div>
+	<script src="js/jquery-1.11.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+  $(".btns>a").on('click', function (e) {
+  	//e.preventDefault();
+  	//var index = $(this).index();
+  	//$('#accordion .collapse').collapse('toggle');
+  	//var href = $(this).attr("href");	
+  	//$(href).collapse('toggle');
+  	//$('#accordion .collapse').eq(index).addClass('in');
+  	var href  = $(this).attr("href");
+  	$("body,html").animate({scrollTop:$(href).offset().top});
+  })
+
+  $(".panel .btn").on('click', function (e) {
+  	var btn = $(e.target)
+  	var div = btn.parent().parent().next();
+  	if(div.css("display") === "none") {
+  		div.css('display','block')
+  	} else{
+  		div.css('display','none')
+  	}
+  })
+
+  $("#btna a").on('click', function () {
+  	var href = $(this).attr("href");
+  	$(href).children().eq(1).css('display','block');
+  })
+  $('#allHide').on('click', function () {
+  		$(".panel1").css('display','none');
+  		$(".panel1").css('display','none');
+  })
+  $('#allShow').on('click', function () {
+  		$(".panel1").css('display','block');
+  })
+  </script>
+</body>
+</html>

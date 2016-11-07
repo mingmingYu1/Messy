@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lineAndPie</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/echarts.js"></script>
+</head>
+<style>
+	.lineChart {
+		margin-top: 20px;
+		border: 1px solid #eff3f8;
+		margin-bottom: 40px;
+	}
+	.lineChart > div {
+		width: 100%;
+		height: 300px;
+		margin-top: 40px;
+	}
+</style>
+</style>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="lineChart">
+		      <div id="capitalGrowthChart"></div>
+	      </div>
+	      <div class="lineChart">
+		      <div id="retirementTicketChart1"></div>  
+	      </div>
+	      <div class="lineChart">
+		      <div id="corporateFundingChart"></div>
+	      </div>
+			</div>
+		</div>
+	</div>
+	<script>
+	var capitalGrowthChart = echarts.init(document.getElementById('capitalGrowthChart'));
+	var optionLine  = {
+		title: {
+			text: '注册资本增长率',
+			left: '100'
+		},
+		tooltip: {
+			show: true,
+			trigger: 'axis',
+			formatter: function (params) {
+				return "日期：" + params[0].name + "<br/>" + params[0].seriesName + "：" + params[0].data + "<br/>" + params[1].seriesName + "：" + params[1].data + "%";
+			}
+		},
+		legend: {
+			data: ['资产（万元）', '增长率'],
+			right: '100',
+			top: '10',
+			selectedMode: false
+		},
+		xAxis: [{
+				type: 'category',
+				splitLine: {
+					lineStyle: {
+						color: "#f5f5f5"
+					}
+				},
+				axisLine: {
+					lineStyle: {
+						color: "#f5f5f5"
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				data: ['2011年', '2012年', '2013年', '2014年', '2015年', '2016年']
+			}],
+		yAxis: [{
+				type: 'value',
+        //	name: '资产（万元）',
+        //nameLocation: 'middle',
+       //nameGap: 50,
+				splitLine: {
+					lineStyle: {
+						color: "#f5f5f5"
+					}
+				},
+				axisLine: {
+					lineStyle: {
+						color: "#f5f5f5"
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				/*min: 0,
+				 max: 250,
+				 interval: 50,*/
+				splitNumber: 6,
+				axisLabel: {
+					formatter: '{value}'
+				}
+			},{
+				type: 'value',
+				//name: '增长率',
+				//nameLocation: 'middle',
+				//nameGap: 50,
+				splitLine: {
+					lineStyle: {
+						color: "#f5f5f5"
+					}
+				},
+				axisLine: {
+					lineStyle: {
+						color: "#f5f5f5"
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				/* min: -100,
+				 max: 100,
+				 interval: 40,*/
+				splitNumber: 6,
+				axisLabel: {
+					formatter: '{value} %'
+				}
+			}
+		],
+		series: [
+			{
+				name: '资产（万元）',
+				type: 'bar',  
+				areaStyle: {
+					normal: {
+						color: 'blue'
+					}
+				},
+				//barWidth: '30',
+				itemStyle: {
+					normal: {
+						color: '#80deea',
+						label: {
+							show: true,
+							position: 'top',
+							textStyle: {
+								color: '#000'
+							}
+						}
+					}
+				},
+				data: [100, 120, 110, 120, 110, 120]
+			},
+			{
+				name: '增长率',
+				type: 'line',
+				yAxisIndex: 1,
+				symbol: 'emptyCircle',
+				smooth: true,
+				itemStyle: {
+					normal: {
+						color: '#919cd4',
+						label: {
+							/*show: true, position: 'left',*/
+							textStyle: {
+								color: '#000'
+							}
+						}
+					}
+				},
+				data: [0, 17, 8, -9, 8, -9]
+			}
+		]
+	};
+	capitalGrowthChart.setOption(optionLine);
+
+  var retirementTicketChart1 = echarts.init(document.getElementById('retirementTicketChart1'));
+  //var retirementTicketChart2 = echarts.init(document.getElementById('retirementTicketChart2'));
+
+  var url;
+  var params;
+  function retirementTicketMonth(url, dom, params) {
+    dom.clear();
+    var option = {
+      title: {
+        text: '退废票增长率',
+        left: '100'
+      },
+      tooltip: {
+        show: true,
+        trigger: 'axis',
+        backgroundColor: "#607d8b",
+        formatter: function (params) {
+          return "日期：" + params[0].name + "<br/>" + params[0].seriesName + "：" + params[0].data + "（张）<br/>"
+              + params[1].seriesName + "：" + params[1].data + "(张) <br/>"+params[2].seriesName + "：" + params[2].data + "%";
+        }
+      },
+      legend: {
+        data: ['出票量', '退废票量', '退废票率'],
+        right: '130',
+        top: '10',
+        selectedMode: false
+      },
+      xAxis: [
+        {
+          type: 'category',
+          splitLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          data: ['2015年10月', '2015年11月', '2015年12月', '2016年1月', '2016年2月', '2016年3月']
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          splitLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          min: 0,
+          max: 250,
+          interval: 50,
+          axisLabel: {
+            formatter: '{value}'
+          }
+        },
+        {
+          type: 'value',
+    		//        name: '增长率',
+				//        nameLocation: 'middle',
+				//        nameGap: 70,
+          splitLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          min: 0,
+          max: 35,
+          interval: 7,
+          axisLabel: {
+            formatter: '{value}%'
+          }
+        }
+      ],
+      series: [
+        {
+          name: '退废票量',
+          type: 'bar',
+          stack: '票量',
+          itemStyle: {
+            normal: {
+              color: '#ff8a65'
+            }
+          },
+          data: [20, 10, 30, 50, 20, 10]
+        },
+        {
+          name: '出票量',
+          type: 'bar',
+          stack: '票量',
+          itemStyle: {
+            normal: {
+              color: '#80deea'
+            }
+          },
+          data: [100, 120, 140, 160, 180, 200]
+        },
+        {
+          name: '退废票率',
+          type: 'line',
+          yAxisIndex: 1,
+          symbolSize: 8,
+          smooth: true,
+          itemStyle: {
+            normal: {
+              color: '#7986cb'
+            }
+          },
+          data: [20, 8, 21, 31, 11, 5]
+        }
+      ]
+    };
+    dom.setOption(option);
+  }
+
+  function retirementTicketDay(url, dom, params) {
+    dom.clear();
+    var option = {
+      tooltip: {
+        show: true,
+        trigger: 'axis',
+        backgroundColor: "#607d8b",
+        formatter: function (params) {
+          return "日期：" + params[0].name + "<br/>" + params[0].seriesName + "：" + params[0].data + "（张）<br/>"
+              + params[1].seriesName + "：" + params[1].data + "(张) <br/>"+params[2].seriesName + "：" + params[2].data + "%";
+        }
+      },
+      toolbox:{
+        feature: {
+          myTool1: {
+            show: true,
+            title: "返回",
+            icon: 'image://http://echarts.baidu.com/images/favicon.png',
+            onclick: function () {
+              retirementTicketMonth(url, retirementTicketChart1, params);
+            }
+          }
+        },
+        right: '50%'
+
+      },
+      legend: {
+        data: ['出票量', '退废票量', '退废票率'],
+        right: '130',
+        top: '10',
+        selectedMode: false
+      },
+      xAxis: [
+        {
+          type: 'category',
+          splitLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisLabel: {
+            rotate: 45,
+            interval: '0'
+          },
+          axisTick: {
+            show: false
+          },
+          data: ['2015/10/1', '2015/10/2', '2015/10/3', '2015/10/4', '2015/10/5', '2015/10/6','2015/10/7','2015/10/8',
+            '2015/10/9','2015/10/10','2015/10/11','2015/10/12','2015/10/13','2015/10/14','2015/10/15','2015/10/16',
+            '2015/10/17','2015/10/18','2015/10/19','2015/10/20','2015/10/21','2015/10/22','2015/10/23','2015/10/24',
+            '2015/10/25','2015/10/26','2015/10/27','2015/10/28','2015/10/29','2015/10/30','2015/10/31'
+          ]
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          splitLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          min: 0,
+          max: 25,
+          interval: 5,
+          axisLabel: {
+            formatter: '{value}'
+          }
+        },
+        {
+          type: 'value',
+          splitLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#f5f5f5"
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          min: 0,
+          max: 450,
+          interval: 90,
+          axisLabel: {
+            formatter: '{value}%'
+          }
+        }
+      ],
+      series: [
+        {
+          name: '退废票量',
+          type: 'bar',
+          stack: '票量',
+          barWidth: '10',
+          itemStyle: {
+            normal: {
+              color: '#ff8a65'
+            }
+          },
+          data: [0, 0, 0, 0, 5, 0, 0 , 0, 0, 0, 8, 2, 0, 0, 0, 3, 0, 6, 2, 1, 0, 1, 4, 6, 3, 0, 0, 0, 0, 2, 4]
+        },
+        {
+          name: '出票量',
+          type: 'bar',
+          barWidth: '10',
+          stack: '票量',
+          itemStyle: {
+            normal: {
+              color: '#80deea'
+            }
+          },
+          data: [10, 6, 13, 17, 15, 7, 12 , 12, 5, 16, 8, 20, 12, 14, 6, 3, 7, 6, 8, 9, 10, 16, 4, 6, 3, 5, 7, 8, 0, 2, 4]
+        },
+        {
+          name: '退废票率',
+          type: 'line',
+          symbolSize: 8,
+          smooth: true,
+          yAxisIndex: 1,
+          itemStyle: {
+            normal: {
+              color: '#7986cb'
+            }
+          },
+          data: [0, 0, 25, 0, 0, 0, 0 , 0, 0, 0, 0, 0, 12, 14, 0, 0, 0, 0, 8, 0, 0, 0, 4, 0, 0, 5, 7, 400, 0, 0, 0]
+        }
+      ]
+    };
+    dom.setOption(option);
+  }
+  retirementTicketMonth(url, retirementTicketChart1, params)
+  
+  retirementTicketChart1.on('click', function (params) {
+    console.log(params);
+    var name = params.name;
+    retirementTicketDay(url, retirementTicketChart1, params)
+  });
+
+  var corporateFundingChart = echarts.init(document.getElementById('corporateFundingChart'));
+  
+  var option2 = {
+    title: {
+      text: '法人出资比例',
+      left: '100'
+    },
+    tooltip: {
+      show: true,
+      trigger: 'axis',
+      formatter: function (params) {
+        return "日期：" + params[0].name + "<br/>" + params[0].seriesName + "：" + params[0].data + "%" ;
+      }
+    },
+    legend: {
+      data: [ '增长率'],
+      right: '130',
+      top: '10',
+      selectedMode: false
+    },
+    grid : {
+        left: '2%',
+        right: '3%',
+        containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        //boundaryGap: false,
+        splitLine: {
+          lineStyle: {
+            color: "#f5f5f5"
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#f5f5f5"
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        data: ['2011年', '2012年', '2013年', '2014年', '2015年', '2016年']
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value',
+				// nameLocation: 'middle',
+				// nameGap: 50,
+        splitLine: {
+          lineStyle: {
+            color: "#f5f5f5"
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#f5f5f5"
+          }
+        },
+        axisTick: {
+          show: false
+        },
+				//min: 0,
+				//max: 60,
+        //interval: 20,
+        //splitNumber: 7,
+        axisLabel: {
+          formatter: '{value}%'
+        }
+      }
+    ],
+    series: [
+      {
+        name: '增长率',
+        type: 'line',
+        symbolSize: 8,
+        //hoverAnimation: false,
+        areaStyle: {
+          normal: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              offset: 0,
+              color: '#7ddde9'
+            }, {
+              offset: 1,
+              color: '#fff'
+            }])
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: '#00bcd4'
+					//label: {
+					// show: true,
+					// position: 'top',
+					// formatter: function (params) {
+					// return params.data + "%";
+					// },
+					// textStyle: {
+					//   color: '#000'
+					// }
+					//  }
+          }
+        },
+        data: [54, 50, 30, 40, 20, 30]
+      }
+    ]
+  };
+  corporateFundingChart.setOption(option2);
+	$(window).on('resize',function () {
+		capitalGrowthChart.resize();
+	})
+</script>
+</body>
+</html>

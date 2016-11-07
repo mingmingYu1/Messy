@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>getSameString</title>
+</head>
+<body>
+  <h1>求两个字符串最大相同的字符段，以及长度</h1>
+  <input id='input1'>
+  <input id="input2"/>
+
+  <button id='clear'>清空</button>
+  <p>最长公共字符串为：<span id='samePublic'></span>，长度为：<span id="length"></span></p>	
+
+  <button id="btn">public</button>
+	<script type="text/javascript">
+		
+		//   将字符串变换成数组
+		function strToString(a) {
+			if(typeof a !== 'string' || !a) {
+				alert('不可为空！')
+				return 
+			}
+			var arr = []
+			for(var i = 0; i < a.length; i++) {
+				arr.push(a.charAt(i))
+			}
+			return arr
+		}
+
+		function searchSomeStr(a1, b1) {
+			if(a1 && b1) {
+				var result = []
+				for(var i = 0; i < a1.length; i++) {
+					result[i] = ''
+				  if(b1.indexOf(a1[i] !== -1)) {
+            getPublicStr(a1, b1, i, b1.indexOf(a1[i]))
+				  }
+				  function getPublicStr(a1, b1, index1, index2) {
+            if(a1.length < index1 || b1.length < index2) {return}
+            if(a1[index1] && a1[index1] === b1[index2]) {
+               result[i] += b1[index2]
+               getPublicStr(a1, b1, ++index1, ++index2)
+            }
+				  }
+			  }
+			  var s = result[0]
+			  for(var i = 0; i < result.length; i++) {
+			  	if(result[i].length > s.length) {
+			  		s = result[i]
+			  	}
+			  }
+			  return s
+			}
+		}
+    document.getElementById('btn').onclick = function() {
+    	var str1 = document.getElementById('input1').value
+		  var str2 = document.getElementById('input2').value
+    	var str = searchSomeStr(strToString(str1), strToString(str2))
+    	document.getElementById('samePublic').innerHTML = str
+    	document.getElementById('length').innerHTML = str.length
+    }
+    document.getElementById('clear').onclick = function() {
+    	document.getElementById('input1').value = ''
+    	document.getElementById('input2').value = ''
+    }
+		//console.log()
+		//console.log(searchSomeStr(strToString(str1), strToString(str2)).length)
+	</script>
+</body>
+</html>
